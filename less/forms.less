@@ -18,12 +18,9 @@
 		padding: 0.5em 0.6em;
 		display: inline-block;
 		border: 1px solid @form-border-color;
-		font-size: 0.8em;
 		box-shadow: inset 0 1px 3px @form-shadow-color;
 		.border-radius( 4px );
-		.transition( 0.3s; border; linear );
 		.box-sizing( border-box );
-		-webkit-font-smoothing: antialiased;
 
 		&:focus{
 			outline: 0;
@@ -36,6 +33,37 @@
 			background-color: @form-disabled-bg;
 			color: @form-disabled-color;
 		}
+	}
+
+	/*
+	Need to separate out the :not() selector from the rest of the CSS 2.1 selectors
+	since IE8 won't execute CSS that contains a CSS3 selector.
+	*/
+	input:not([type]) {
+	    padding: 0.5em 0.6em;
+	    display: inline-block;
+		border: 1px solid @form-border-color;
+		box-shadow: inset 0 1px 3px @form-shadow-color;
+		.border-radius( 4px );
+		.box-sizing( border-box );
+
+		&:focus {
+		    outline: 0;
+		    outline: thin dotted \9; /* IE6-9 */
+		    border-color: @form-border-color-focus;
+		}
+
+		&[disabled] {
+			cursor: not-allowed;
+			background-color: @form-disabled-bg;
+			color: @form-disabled-color;
+		}
+	}
+
+	/* Chrome (as of v.32/34 on OS X) needs additional room for color to display. */
+	/* May be able to remove this tweak as color inputs become more standardized across browsers. */
+	input[type="color"] {
+	    padding: 0.2em 0.5em;
 	}
 
 	input[type="file"]:focus,
@@ -73,7 +101,7 @@
 	textarea:focus:invalid,
 	select:focus:invalid {
 		color: @form-invalid-color;
-		border: 1px solid @form-invalid-border-color;
+		border-color: @form-invalid-border-color;
 
 		&:focus {
 			border-color: @form-invalid-border-color-focus;
@@ -90,8 +118,7 @@
 	}
 
 	label {
-		margin: 0.5em 0 0.2em;
-		font-size: 90%;
+	    margin: 0.5em 0 0.2em;
 	}
 
 	fieldset {
@@ -105,7 +132,6 @@
 		width:100%;
 		padding: 0.3em 0;
 		margin-bottom: 0.3em;
-		font-size: 125%;
 		color: @form-legend-color;
 		border-bottom: 1px solid @form-legend-border-color;
 	}
@@ -122,6 +148,7 @@
 		fieldset {
 			margin-bottom:10px;
 		}
+
 		input {
 			display:block;
 			padding:10px;
@@ -142,6 +169,7 @@
 				.border-radius( 0 0 4px 4px );
 			}
 		}
+
 		button {
 			margin: 0.35em 0;
 		}
@@ -182,8 +210,17 @@
 	select,
 	label,
 	textarea {
-    display: block;
-    margin: 0.25em 0;
+	    display: block;
+	    margin: 0.25em 0;
+	}
+
+	/*
+	Need to separate out the :not() selector from the rest of the CSS 2.1 selectors
+	since IE8 won't execute CSS that contains a CSS3 selector.
+	*/
+	input:not([type]) {
+	    display: block;
+	    margin: 0.25em 0;
 	}
 }
 
@@ -193,10 +230,14 @@
 	select,
 	/* NOTE: pure-help-inline is deprecated. Use .pure-form-message-inline instead. */
 	.pure-help-inline {
-		display: inline-block;
-		*display: inline;
-		*zoom: 1;
-		vertical-align: middle;
+	    display: inline-block;
+	    *display: inline;
+	    *zoom: 1;
+	    vertical-align: middle;
+	}
+
+	textarea {
+		vertical-align: top;
 	}
 
 	.pure-control-group {
@@ -216,22 +257,18 @@
 	}
 }
 
-/** Inline help for forms
- * NOTE: pure-help-inline is deprecated.
- * Use .pure-form-message-inline instead.
- */
 .pure-form .pure-help-inline,
 .pure-form-message-inline {
 	display: inline-block;
 	padding-left: 0.3em;
-	color: #666;
+	color: @form-help-color;
 	vertical-align: middle;
-	font-size: 90%;
+	font-size: 0.875em;
 }
 
 /* Block help for forms */
 .pure-form-message {
 	display: block;
-	color: #666;
-	font-size: 90%;
+	color: @form-help-color;
+    font-size: 0.875em;
 }
