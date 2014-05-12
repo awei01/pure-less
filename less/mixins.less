@@ -26,3 +26,12 @@
 	-o-border-radius: @radius;
 	border-radius: @radius;
 }
+
+.flexbox( @type ) {
+    display: -webkit-flex;
+    -webkit-flex-flow: @type;
+
+    /* IE10 uses display: flexbox */
+    display: -ms-flexbox;
+    -ms-flex-flow: @type;
+}
